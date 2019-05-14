@@ -16,7 +16,11 @@
     "dotenv": "^7.0.0",
     "express": "^4.16.4",
     "mocha": "^6.1.4",
+<<<<<<< HEAD
     "mongoose": "^5.5.7",
+=======
+    "mongoose": "^5.5.6",
+>>>>>>> trying to commit
     "pbkdf2": "^3.0.17",
     "socket.io": "^2.2.0"
   }
