@@ -1,4 +1,4 @@
-// Create your mongoose user schema here.
+// Creating  mongoose user schema here.
 
 const pbkdf2 = require('pbkdf2');
 const mongoose = require('mongoose');

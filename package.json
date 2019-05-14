@@ -1,11 +1,11 @@
 {
-  "name": "assignment-5",
+  "name": "chatting",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node -r ./init/init.js server.js",
-    "test": "mocha ./tests/**.test.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
@@ -16,11 +16,8 @@
     "dotenv": "^7.0.0",
     "express": "^4.16.4",
     "mocha": "^6.1.4",
-<<<<<<< HEAD
     "mongoose": "^5.5.7",
-=======
-    "mongoose": "^5.5.6",
->>>>>>> trying to commit
+    "path": "^0.12.7",
     "pbkdf2": "^3.0.17",
     "socket.io": "^2.2.0"
   }
