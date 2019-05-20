@@ -10,7 +10,7 @@ const {
     UserAlreadyExists,
     PasswordIncorrect,
     ValidationError, 
-    UserIsLocked
+    //UserIsLocked
 }
  = require(`${path}/errors/errors.js`);
 
@@ -31,23 +31,13 @@ const UserSchema = new mongoose.Schema({
         }
 },
 
-    first_name: {
-        type: String,
-        trim: true
-    },
-
-    last_name: {
-        type: String,
-        trim: true
-    },
-
-    email: {
-        type: String,
-        lowercase: true,
-        unique: true,
-        required: [true, 'Email is required!'],
-        trim: true
-    },
+    // email: {
+    //     type: String,
+    //     lowercase: true,
+    //     unique: true,
+    //     required: [true, 'Email is required!'],
+    //     trim: true
+    // },
 
     password: {
         type: String,
@@ -75,12 +65,12 @@ UserSchema.statics.findUserByUsername = function(username) {
     return User.findOne({username}, {"_id": false, password: false});
 }
 
-UserSchema.statics.findUser = function(username) {
-    return User.findOne({username}, {"_id": false});
-}
+// UserSchema.statics.findUser = function(username) {
+//     return User.findOne({username}, {"_id": false});
+// }
 
 UserSchema.statics.newUser = function(body) {
-    const user = new User({username: body.username, first_name: body.first_name, last_name: body.last_name, email: body.email, password: body.password });
+    const user = new User({username: body.username, password: body.password });
     user.save();
 }
 

@@ -3,60 +3,47 @@ const mongoose = require('mongoose');
 const path = process.cwd();
 
 
-const {
-    // I wiil decide what errors we need here later
-}
- = require(`${path}/errors/errors.js`);
+// const {
+//     // I wiil decide what errors we need here later
+// }
+//  = require(`${path}/errors/errors.js`);
 
  
-
-
-const MessageSchema = new Schema({
-    sender : {
-        type : mongoose.Schema.Types.ObjectId,
-        ref : 'User'
-    },
-    
-    messages : [
-        {
-            message : String,
-            meta : [
-                {
-                    user : {
-                        type : mongoose.Schema.Types.ObjectId,
-                        ref : 'User'
-                    },
-                    delivered : Boolean,
-                    read : Boolean
-                }
-            ],
-            validate: {
-                validator: function(v) {
-                    return v.length >= 1;
-                },
-                message: new ValidationError().message
-            }
-            
-        }
-    ],
-    // is_group_message : { type : Boolean, default : false },
-    // participants : [
-    //     {
-    //         user :  {
-    //             type : mongoose.Schema.Types.ObjectId,
-    //             ref : 'User'
-    //         },
-    //         delivered : Boolean,
-    //         read : Boolean,
-    //         last_seen : Date
-    //     }
-    // ]
+ const MessageSchema = mongoose.Schema({
+  created: {
+    type: Date,
+    required: true
+  },
+  from: {
+    type: String,
+    required: true
+  },
+  text: {
+    type: String,
+    required: true
+  },
+  conversationId: {
+    type: String,
+    required: true
+  },
+  inChatRoom: {
+    type: Boolean,
+    required: false
+  },
 });
 
-// UserSchema.statics.newMessage = function(body) {
-//     const message = new Message({sender: body.username, });
-//     message.save();
-// }
+MessageSchema.statics.addMessage = (message, callback) => {
+  message.save(callback);
+};
+
+MessageSchema.statics.getMessages = (callback) => {
+  Message.find({}, callback);
+};
+
+MessageSchema.statics.getMessagesByConv = (id, callback) => {
+  Message.find({conversationId: id}, callback);
+};
+
 
 const Message = mongoose.model('Message', MessageSchema);
 

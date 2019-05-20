@@ -22,16 +22,15 @@ class ValidationError extends Error{
     }
 }
 
-class UserIsLocked extends Error{
-    constructor(username){
-        super(`OOPS: User with ${username} is locked`)
-    }
-}
+// class UserIsLocked extends Error{
+//     constructor(username){
+//         super(`OOPS: User with ${username} is locked`)
+//     }
+// }
 
 module.exports = {
     UserNotFound,
     UserAlreadyExists,
     PasswordIncorrect,
     ValidationError, // Username is shorter than 4 characters
-    UserIsLocked // BONUS
 }

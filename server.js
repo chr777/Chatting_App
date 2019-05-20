@@ -23,8 +23,8 @@ app.get('/', function(req, res) {
 })
 
 
-const User = require(`${PATH}/schemas/users.js`);
-const {login} = require(`${PATH}/models/users.js`);
+// const User = require(`${PATH}/schemas/users.js`);
+// const {login} = require(`${PATH}/models/users.js`);
 
 // app.post('/login', async function(req, res) {
 //   const body = req.body;
@@ -49,13 +49,7 @@ app.use(function(req, res, next) {
 })
 
 app.use(function(err, req, res, next) {
-  // if(err.message === 'user not found') {
-  //     res.status(404).send('user was not found');
-  // } else {
-  //     console.log(err);
-  //     socketio.emit('error', err.message);
-  //     res.status(500).send('something went wrong');
-  // }
+ 
 })
 
 
