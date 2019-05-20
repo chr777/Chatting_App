@@ -7,7 +7,7 @@ const {
     UserAlreadyExists,
     PasswordIncorrect,
     ValidationError, 
-    UserIsLocked
+    //UserIsLocked
 } = require(`${path}/errors/errors.js`);
 
 async function login(username, password) {
@@ -37,10 +37,10 @@ async function getAllUsers() {
     return user;
 }
 
-async function createUser(username, first_name, last_name, email, password) {
+async function createUser(username, password) {
     try{  
          // Call corresponding schema function to create a user.
-        const user = await User.newUser({username: username, first_name: first_name, last_name: last_name, email: email, password: password});
+        const user = await User.newUser({username: username, password: password});
     }      
    catch(err){      // Catch that error here and throw UserAlreadyExists error instead.
         throw new UserAlreadyExists(username);
