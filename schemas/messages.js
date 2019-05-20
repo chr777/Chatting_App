@@ -8,7 +8,11 @@ const {
 }
  = require(`${path}/errors/errors.js`);
 
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> c5f918bbdcf3f98476b59db23651ef08af814305
 
 
 const MessageSchema = new Schema({
@@ -16,7 +20,11 @@ const MessageSchema = new Schema({
         type : mongoose.Schema.Types.ObjectId,
         ref : 'User'
     },
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> c5f918bbdcf3f98476b59db23651ef08af814305
     messages : [
         {
             message : String,
@@ -36,7 +44,11 @@ const MessageSchema = new Schema({
                 },
                 message: new ValidationError().message
             }
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> c5f918bbdcf3f98476b59db23651ef08af814305
         }
     ],
     // is_group_message : { type : Boolean, default : false },
@@ -61,3 +73,7 @@ const MessageSchema = new Schema({
 const Message = mongoose.model('Message', MessageSchema);
 
 module.exports = Message;
+<<<<<<< HEAD
+=======
+
+>>>>>>> c5f918bbdcf3f98476b59db23651ef08af814305

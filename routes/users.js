@@ -25,7 +25,6 @@ router.post('/', async function(req, res) {
 router.get('/:username', async function(req, res) {
     
 	try{
-        console.log("we are in try")
         const user = await getUser(req.params.username);
     	res.json(user);
 	}
