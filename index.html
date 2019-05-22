@@ -30,20 +30,7 @@
           </form>
         </div>
       </div>
-      <script type="text/javascript" src="./js/scripts.js"></script>
-      <script src="/socket.io/socket.io.js"></script>
-      <script>
-          const socket = io();
-          socket.on('student-saved', function(data) {
-              $('#studentList').append(
-                  `<li class="list-group-item">${data.email}</li>`
-              )
-          })
-  
-          socket.on('error', function(data) {
-              alert(data);
-          })
-      </script>
+      <script type="text/javascript" src="./js/login.js"></script>
 </body>
 
 </html>

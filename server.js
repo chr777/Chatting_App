@@ -18,7 +18,10 @@ app.set('socketio', socketio);
   PasswordIncorrect,
   ValidationError,
   } = require('./errors/errors.js');
+
 app.use('/users', require('./routes/users.js'));
+app.use('/messages', require('./routes/messages.js'));
+
 app.use(express.static('public'));
 
 app.get('/main.html', (req, res) => {

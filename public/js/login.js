@@ -53,21 +53,3 @@ $("#sign-in").click(function() {
 
 
 
-
-// $.get("/students", function(data) {
-//     $('#studentList').html(
-//         data.map(single => {
-//             return `<li class="list-group-item">${single.email}</li>`
-//         })
-//     );
-// });
-
-// (function() {
-//     var  socket  =  io();
-//     $("form").submit(function(e) {
-//         e.preventDefault(); // prevents page reloading
-//         socket.emit("chat message", $("#m").val());
-//         $("#m").val("");
-//     return  true;
-// });
-// })();
