@@ -4,7 +4,6 @@ let username = localStorage.getItem("username");
 $('.message a').click(function(){
     $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
     });
-
    
 $('#login-form').submit(function(event) {
     event.preventDefault();
