@@ -10,21 +10,18 @@ FieldIsRequired,
 UserNotFound
 } = require(`${path}/errors/errors.js`);
 
-async function createMessage(username, from, text) {
-  console.log(description);
+async function createMessage(username, text) {
   try{
-     let user = await User.getUserByUsername(email);
-     console.log(user);
+     let user = await User.getUserByUsername(username);
      if(!user)
       throw new UserNotFound();
      let message =  await new Post({
-     from: username._id,
+     from: username,
      text: text,
      date: new Date()
       });
      await message.save();
-     console.log(message);
-     user.messages.push({_id: post._id});
+     user.messages.push({_id: message._id});
      await user.updateForDeleteCreate(user.messages);
      return message;
    }

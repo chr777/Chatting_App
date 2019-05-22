@@ -13,7 +13,7 @@ const {
   createUser
 } = require(`${path}/models/users.js`);
 
-router.post('/users', async function(req, res, next) {
+router.post('/', async function(req, res, next) {
 
   try {
     await createUser(req.body);
@@ -46,10 +46,10 @@ router.get('/UserByUsername', async function(req, res, next) {
 
 
 
-  router.get('/login', async function(req, res, next) {
+  router.post('/', async function(req, res, next) {
     try {
   
-      const user = await login(req.query.email, req.query.password);
+      const user = await login(req.query.username, req.query.password);
       res.json(user);
       res.status(200).end();
     } catch (err) {

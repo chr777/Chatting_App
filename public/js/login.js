@@ -11,7 +11,7 @@ $('#login-form').submit(function(event) {
     let username = $('#username').val();
     let password = $('#password').val();
 
-    $.get("/login", {username, password}, function(data) {
+    $.post("/login", {username, password}, function(data) {
         if(data.username === username){
             localStorage.setItem("username", username);
             document.open('main.html', '_self', '');
@@ -24,15 +24,11 @@ $('#login-form').submit(function(event) {
 
 $('#reg-form').submit(function(event) {
         event.preventDefault();
-        const username = $('#username').val();
-        const password = $('#password').val();
-        $.post("/users", {username, password},  function(data) {
-  
-            $('#firstname').val('');
-            $('#lastname').val('');
-            $('#userEmail').val('');
-            $('#userPassword').val('');
-  
+        const username = $('#username_reg').val();
+        const password = $('#password_reg').val();
+        $.post("/users", {username, password},  function(data) {  
+            $('#username_reg').val('');
+            $('#password_reg').val('');  
         });
 });
 

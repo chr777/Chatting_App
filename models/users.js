@@ -45,6 +45,8 @@ async function createUser(body) {
       messages: [],
     });
     await user.save();
+    const socketio = req.app.get('socketio');
+    socketio.emit('student-saved', student);
   } catch (err) {
     if (err.message.includes('Invalid user!')) {
       throw new ValidationError();

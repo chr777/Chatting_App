@@ -40,7 +40,8 @@ const UserSchema = new mongoose.Schema({
         trim: true
     },
     messages: [{
-      type: 'ObjectId',
+      _id: "String",
+      type: 'String',
       ref: Message
     }]
 });
@@ -57,7 +58,7 @@ const UserSchema = new mongoose.Schema({
 UserSchema.statics.getAllUsers = function(filter) {
     return User.find(filter, {password: false});
 }
-UserSchema.statics.ﬁndUserForLogin = function(email) {
+UserSchema.statics.ﬁndUserForLogin = function(username) {
   return user = User.findOne({username: username}, {
     _id: false
   });

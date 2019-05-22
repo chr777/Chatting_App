@@ -12,27 +12,27 @@ const {
   getRecentMessages
 } = require(`${path}/models/messages.js`);
 
-router.post('/messages', async function(req, res, next) {
+router.post('/', async function(req, res, next) {
 
   try {
-    res.send(await createMessage(req.body.username, req.body.from, req.body.text));
+    res.send(await createMessage(req.body.username, req.body.text));
     res.status(200).end();
   } catch (err) {
     next(err);
   }
 })
 
-router.get('/messages', async function(req, res, next) {
-  try{
-  res.send(await getMessages());
-  res.status(200).end();
-  }
-  catch (err) {
-    next(err);
-  }
-})
+// router.get('/', async function(req, res, next) {
+//   try{
+//   res.send(await getMessages());
+//   res.status(200).end();
+//   }
+//   catch (err) {
+//     next(err);
+//   }
+// })
 
-router.get('/postsMessages', async function(req, res, next) {
+router.get('/', async function(req, res, next) {
   try{
   res.send(await getRecentMessages());
   res.status(200).end();

@@ -22,20 +22,13 @@ const path = process.cwd();
   date: Date
 });
 
-MessageSchema.statics.addMessage = (message, callback) => {
-  message.save(callback);
-};
-
-MessageSchema.statics.getMessages = (callback) => {
-  Message.find({}, callback);
-};
 
 MessageSchema.statics.getAllMessages = function() {
   return Message.find({});
 }
 
 MessageSchema.statics.getRecentMessages = function() {
- return Message.find({}).sort({ date: -1 }).limit(3);
+ return Message.find({}).sort({ date: -1 }).limit(5);
 }
 
 
