@@ -12,7 +12,7 @@ UserNotFound
 
 async function createMessage(username, text) {
   try{
-     let user = await User.getUserByUsername(username);
+     let user = await User.findUserByUsername(username);
      if(!user)
       throw new UserNotFound();
      let message =  await new Post({
@@ -30,6 +30,9 @@ async function createMessage(username, text) {
        throw new FieldIsRequired();
       if (err.message === new UserNotFound().message)
         throw new UserNotFound();
+
+        console.log(err.stack);
+        
     }
 }
 
