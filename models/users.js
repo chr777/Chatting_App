@@ -7,12 +7,12 @@ const {
     UserAlreadyExists,
     PasswordIncorrect,
     ValidationError, 
-    //UserIsLocked
+    FieldIsRequired
 } = require(`${path}/errors/errors.js`);
 
 async function login(username, password) {
 
-    let user = await User.findUser(username); // Call corresponding schema function to retrieve the user
+    let user = await User.ﬁndUserForLogin(username); // Call corresponding schema function to retrieve the user
     if(!user){                                // if the user is not found, throw UserNotFound error.
         throw new UserNotFound(username);
     }
@@ -37,15 +37,23 @@ async function getAllUsers() {
     return user;
 }
 
-async function createUser(username, password) {
-    try{  
-         // Call corresponding schema function to create a user.
-        const user = await User.newUser({username: username, password: password});
-    }      
-   catch(err){      // Catch that error here and throw UserAlreadyExists error instead.
-        throw new UserAlreadyExists(username);
-        // If the user already exists mongoose should throw an error.
+async function createUser(body) {
+  try {
+      const user = await new User({
+      username: body.username,
+      password: body.password,
+      messages: [],
+    });
+    await user.save();
+  } catch (err) {
+    if (err.message.includes('Invalid user!')) {
+      throw new ValidationError();
+    } else if (err.message.includes('duplicate key')) {
+      throw new UserAlreadyExists();
     }
+    if (err.message.includes('is required.'))
+      throw new FieldIsRequired();
+  }
 }
 
 module.exports = {
@@ -54,3 +62,8 @@ module.exports = {
     getAllUsers,
     createUser
 }
+
+
+  
+
+

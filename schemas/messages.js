@@ -10,10 +10,6 @@ const path = process.cwd();
 
  
  const MessageSchema = mongoose.Schema({
-  created: {
-    type: Date,
-    required: true
-  },
   from: {
     type: String,
     required: true
@@ -22,28 +18,27 @@ const path = process.cwd();
     type: String,
     required: true
   },
-  conversationId: {
-    type: String,
-    required: true
-  },
-  inChatRoom: {
-    type: Boolean,
-    required: false
-  },
+  
+  date: Date
 });
 
 MessageSchema.statics.addMessage = (message, callback) => {
   message.save(callback);
 };
 
-
 MessageSchema.statics.getMessages = (callback) => {
   Message.find({}, callback);
 };
 
-MessageSchema.statics.getMessagesByConv = (id, callback) => {
-  Message.find({conversationId: id}, callback);
-};
+MessageSchema.statics.getAllMessages = function() {
+  return Message.find({});
+}
+
+MessageSchema.statics.getRecentMessages = function() {
+ return Message.find({}).sort({ date: -1 }).limit(3);
+}
+
+
 
 const Message = mongoose.model('Message', MessageSchema);
 

@@ -1,43 +1,63 @@
 // Define routes of /users/ api here
+
 const express = require('express');
 
+
 const router = express.Router();
-
+const bodyParser = require('body-parser');
 const path = process.cwd();
+const {
+  login,
+  getUser,
+  getAllUsers,
+  createUser
+} = require(`${path}/models/users.js`);
 
-const {getUser,
-    getAllUsers,
-    createUser} 
-    = require(`${path}/models/users.js`);
+router.post('/users', async function(req, res, next) {
 
-
-router.post('/', async function(req, res) {
-    try{
-        const body = req.body;
-        await createUser(body.username, body.first_name, body.last_name, body.email, body.password);
-        res.status(200).end();
-    }  
-    catch(err){
-        res.status(409).end();
-    }   
+  try {
+    await createUser(req.body);
+    res.status(200).end();
+  } catch (err) {
+    next(err);
+  }
 })
 
-router.get('/:username', async function(req, res) {
-    
-	try{
-        const user = await getUser(req.params.username);
-    	res.json(user);
-	}
-    catch(err){
-	res.status(404).end();
-    }
-})
-
-router.get('/', async function(req, res) {
+router.get('/users', async function(req, res, next) {
+  try {
     const users = await getAllUsers();
     res.json(users);
+  } catch (err) {
+    next(err);
+  }
 })
 
 
-module.exports = router;
+router.get('/UserByUsername', async function(req, res, next) {
+    try {
+      console.log(req.query.username);
+      const user = await getUser(req.query.username);
+      res.json(user);
+      res.status(200).end();
+    } catch (err) {
+      next(err);
+    }
+  })
+
+
+
+  router.get('/login', async function(req, res, next) {
+    try {
+  
+      const user = await login(req.query.email, req.query.password);
+      res.json(user);
+      res.status(200).end();
+    } catch (err) {
+      next(err)
+    }
+  })
+  
+  
+  module.exports = router;
+
 
