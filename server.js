@@ -21,6 +21,7 @@ app.set('socketio', socketio);
 
 app.use('/users', require('./routes/users.js'));
 app.use('/messages', require('./routes/messages.js'));
+app.use('/login', require('./routes/login.js'));
 
 app.use(express.static('public'));
 

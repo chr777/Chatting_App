@@ -13,9 +13,10 @@ const {
 } = require(`${path}/models/messages.js`);
 
 router.post('/', async function(req, res, next) {
-
   try {
-    res.send(await createMessage(req.body.username, req.body.text));
+    await createMessage(req.body);
+    const socketio = req.app.get('socketio');
+    socketio.emit('message-saved', req.body);
     res.status(200).end();
   } catch (err) {
     next(err);
@@ -24,8 +25,8 @@ router.post('/', async function(req, res, next) {
 
 // router.get('/', async function(req, res, next) {
 //   try{
-//   res.send(await getMessages());
-//   res.status(200).end();
+//     const messages = await getMessages();
+//     res.json(messages);
 //   }
 //   catch (err) {
 //     next(err);
@@ -41,6 +42,18 @@ router.get('/', async function(req, res, next) {
     next(err);
   }
 })
+
+router.get('/messages', async function(req, res, next) {
+  try{
+  res.send(await getMessages());
+  res.status(200).end();
+  }
+  catch (err) {
+    next(err);
+  }
+})
+
+
 
 
 

@@ -1,54 +1,59 @@
-$.get("/users", function(data) {
-    $('#users-list').html(
-        data.map(single => {
-            return `<li class="media">
-            <div class="media-body">
-                <div class="media">
-                    <div class="media-body" >
-                        <h5>${single.username} </h5>
 
+loc_username = localStorage.getItem("loc_username");
+
+console.log(loc_username);
+
+if(loc_username){
+    $.get("/users", function(data) {
+        $('#users-list').html(
+            data.map(single => {
+                return `<li class="media">
+                <div class="media-body">
+                    <div class="media">
+                        <div class="media-body" >
+                            <h5>${single.username} </h5>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </li>`
-        })
-    );
-});
-
-$.get("/messages", function(data) {
-    $('#message-list').html(
-        data.map(single => {
-            return `<li class="media">
-
-            <div class="media-body">
-
-                <div class="media">
-                    <a class="pull-left" href="#">
-                        <img class="media-object img-circle " src="public/pictures/user2.jpg" />
-                    </a>
-                    <div class="media-body" >
-                    ${single.text}
-                        <br />
-                       <small class="text-muted">${single.username} | ${single.date}</small>
-                        <hr />
+            </li>`
+            })
+        );
+    });
+    
+    $.get("/messages", function(data) {
+        $('#message-list').html(
+            data.map(single => {
+                return `<li class="media">
+                <div class="media-body" >
+                    <div class="media">
+                        <div class="media-body" >
+                        ${single.text}
+                            <br />
+                           <small class="text-muted">${single.from} | ${single.date}</small>
+                            <hr />
+                        </div>
                     </div>
                 </div>
+            </li>`
+            })
+        );
+    });
 
-            </div>
-        </li>`
-        })
-    );
-});
+}
 
-$('#message-form').submit(function(event) {
+
+$('#message_button').submit(function(event) {
     event.preventDefault();
-    const message = $('#m-text').val();
-    $.post("/messages", {message},  function(data) {
-
+    const text = $('#m-text').val();
+    const username = loc_username;
+    console.log(text);
+    $.post("/messages", {username, text},  function(data) {
+        username;
         $('#m-text').val('');
-  
     });
 });
+
+
 
 // (function() {
 //     var  socket  =  io();

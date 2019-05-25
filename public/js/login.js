@@ -1,18 +1,23 @@
 
-let username = localStorage.getItem("username");
+let loc_username = localStorage.getItem("username");
+
+console.log(loc_username);
+
 
 $('.message a').click(function(){
     $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
     });
-   
-$('#login-form').submit(function(event) {
+
+$('#login').click(function(event) {
     event.preventDefault();
     let username = $('#username').val();
     let password = $('#password').val();
-
-    $.post("/login", {username, password}, function(data) {
+    $.get("/login", { username, password}, function(data) {
+        console.log(data);
         if(data.username === username){
-            localStorage.setItem("username", username);
+            console.log(username)
+            localStorage.setItem("loc_username", username);
+            console.log(loc_username);
             document.open('main.html', '_self', '');
          }
          else{
@@ -31,20 +36,20 @@ $('#reg-form').submit(function(event) {
         });
 });
 
-$("#sign-in").click(function() {
-    const username = $('#username').val();
-    const password = $('#password').val();
-    $.get("/UserByUsername", {
-      username
-    }, function(data) {
-      if(data.username === username){
-        alert("Account with this username already exists");
-      }
-      else if(!username  || !password){
-        alert("All fields are required");
-      }
-    });
-  });
+// $("#sign-in").click(function() {
+//     const username = $('#username').val();
+//     const password = $('#password').val();
+//     $.get("/UserByUsername", {
+//       username
+//     }, function(data) {
+//       if(data.username === username){
+//         alert("Account with this username already exists");
+//       }
+//       else if(!username  || !password){
+//         alert("All fields are required");
+//       }
+//     });
+//   });
 
 
 

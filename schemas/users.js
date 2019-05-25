@@ -39,11 +39,10 @@ const UserSchema = new mongoose.Schema({
         required: [true, 'Password is required!'],
         trim: true
     },
-    messages: [{
-      _id: "String",
-      type: 'String',
-      ref: Message
-    }]
+    // messages: [{
+    //   type: String,
+    //   ref: Message
+    // }]
 });
 
   UserSchema.pre('save', function(next) {
@@ -68,15 +67,16 @@ UserSchema.statics.findUserByUsername = function(username) {
     return User.findOne({username}, {"_id": false, password: false});
 }
 
-UserSchema.methods.updateForDeleteCreate = function(messages) {
-  User.update({
-    username: this.username
-  }, {
-    messages: messages
-  }, function(err, affected, resp) {
-    console.log(affected);
-  });
-}
+// UserSchema.method.update = function(messages) {
+//   User.update({
+//     username: this.username
+//   }, {
+  
+//   }, function(err, affected, resp) {
+//     console.log(err.stack);
+   
+//   });
+// }
 
 
   

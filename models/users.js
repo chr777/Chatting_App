@@ -13,7 +13,7 @@ const {
 async function login(username, password) {
 
     let user = await User.ﬁndUserForLogin(username); // Call corresponding schema function to retrieve the user
-    if(!user){                                // if the user is not found, throw UserNotFound error.
+    if(user === null || user.length === 0){                                // if the user is not found, throw UserNotFound error.
         throw new UserNotFound(username);
     }
     if(!(await user.comparePassword(password))){ // if the passwords do not match, throw PasswordIncorrect error.
@@ -28,7 +28,6 @@ async function getUser(username) {
     if(!user){
         throw new UserNotFound(username);
     }
-
     return user;
 }
 
@@ -44,9 +43,8 @@ async function createUser(body) {
       password: body.password,
       messages: [],
     });
+
     await user.save();
-    const socketio = req.app.get('socketio');
-    socketio.emit('student-saved', student);
   } catch (err) {
     if (err.message.includes('Invalid user!')) {
       throw new ValidationError();
@@ -55,6 +53,7 @@ async function createUser(body) {
     }
     if (err.message.includes('is required.'))
       throw new FieldIsRequired();
+    console.log(err.stack);
   }
 }
 

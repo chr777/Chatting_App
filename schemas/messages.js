@@ -27,8 +27,9 @@ MessageSchema.statics.getAllMessages = function() {
   return Message.find({});
 }
 
+
 MessageSchema.statics.getRecentMessages = function() {
- return Message.find({}).sort({ date: -1 }).limit(5);
+ return Message.find({}).sort({ date: -1 }).limit(10);
 }
 
 

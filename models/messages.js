@@ -1,6 +1,6 @@
 const path = process.cwd();
 const User = require(`${path}/schemas/users.js`);
-const Post = require(`${path}/schemas/messages.js`);
+const Message = require(`${path}/schemas/messages.js`);
 const {
   getUser
 } = require(`${path}/models/users.js`);
@@ -10,44 +10,40 @@ FieldIsRequired,
 UserNotFound
 } = require(`${path}/errors/errors.js`);
 
-async function createMessage(username, text) {
+async function createMessage(body) {
   try{
-     let user = await User.findUserByUsername(username);
+    let user = await User.findUserByUsername(body.username);
+    console.log(user);
      if(!user)
       throw new UserNotFound();
-     let message =  await new Post({
-     from: username,
-     text: text,
+     const message =  await new Message({
+     from: body.username,
+     text: body.text,
      date: new Date()
       });
      await message.save();
-     user.messages.push({_id: message._id});
-     await user.updateForDeleteCreate(user.messages);
+     await user.update(body.text);
      return message;
    }
     catch(err){
-      if (err.message.includes('is required.'))
-       throw new FieldIsRequired();
       if (err.message === new UserNotFound().message)
         throw new UserNotFound();
 
-        console.log(err.stack);
-        
+        console.log(err.stack);        
     }
 }
 
 
 async function getMessages(){
-  return await Post.getMessages();
+  const message = await Message.getAllMessages();
+  return message; 
 }
 
 
 
 async function getRecentMessages(){
-  return Post.getRecentMessages();
+  return Message.getRecentMessages();
 }
-
-
 
 
 module.exports = {

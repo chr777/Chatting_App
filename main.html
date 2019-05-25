@@ -28,11 +28,11 @@
             </div>
             <div class="panel-footer">
                 <div class="input-group">
-                                    <form id = "message-form">
+                                 <form  id = "message_button"class="login-form">    
                                         <input id = "m-text" type="text" class="form-control" placeholder="Enter Message" />
                                         <span class="input-group-btn">
-                                            <button  type="submit" class="btn btn-info" type="button">SEND</button>
-                                        </span>
+                                            <button type = "submit"   class="btn btn-info" type="button">SEND</button>
+                                        
                                     </form>
                                 </div>
             </div>
@@ -45,43 +45,6 @@
             </div>
             <div class="panel-body">
                 <ul id ="users-list" class="media-list">
-
-                                    <li class="media">
-
-                                        <div class="media-body">
-
-                                            <div class="media">
-                                                <a class="pull-left" href="#">
-                                                    <img class="media-object img-circle" style="max-height:40px;" src="public/pictures/user2.jpg" />
-                                                </a>
-                                                <div class="media-body" >
-                                                    <h5>Olenna Tyrell | User </h5>
-
-                                                   <small class="text-muted">Active From 3 hours</small>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </li>
-                                    <li class="media">
-
-                                        <div class="media-body">
-
-                                            <div class="media">
-                                                <a class="pull-left" href="#">
-                                                    <img class="media-object img-circle" style="max-height:40px;" src="public/pictures/user1.jpg" />
-                                                </a>
-                                                <div class="media-body" >
-                                                    <h5>Daenerys Targaryen | User </h5>
-
-                                                   <small class="text-muted">Active From 3 hours</small>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </li>
-                    
-
     </div>
 </div>
   </div>
@@ -91,9 +54,34 @@
     <script>
         const socket = io();
         socket.on('message-saved', function(data) {
-            // $('#message-list').append(
-            //     `<li class="media">${data.message}</li>`
-            // )
+            $('#message-list').append(
+                `<li class="media">
+                <div class="media-body">
+                    <div class="media">
+                        <div class="media-body" >
+                        ${data.text}
+                            <br />
+                           <small class="text-muted">${data.username} | ${new Date()}</small>
+                            <hr />
+                        </div>
+                    </div>
+                </div>
+            </li>`
+            )
+        })
+
+        socket.on('user-saved', function(data) {
+            $('#users-list').append(
+                `<li class="media">
+                <div class="media-body">
+                    <div class="media">
+                        <div class="media-body" >
+                            <h5>${data.username} </h5>
+                        </div>
+                    </div>
+                </div>
+            </li>`
+            )
         })
 
         socket.on('error', function(data) {
